@@ -1,17 +1,21 @@
 <?php
+require "API_keys.php";
+
 $ch = curl_init();
 
 $headers = [
-  "Authorization: token YOUR_TOKEN",
-  // "User-Agent:Trump-2"
+  "Authorization: token $github",
+  "User-Agent:Trump-2"
 ];
 
 
 curl_setopt_array($ch, [
   // Github API
-  CURLOPT_URL => "https://api.github.com/user/starred/httpie/httpie",
+  CURLOPT_URL => "https://api.github.com/user/starred/httpie/cli",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_HTTPHEADER => $headers,
+  // CURLOPT_CUSTOMREQUEST => "DELETE",
+  CURLOPT_CUSTOMREQUEST => "PUT"
 ]);
 
 $response = curl_exec($ch);
