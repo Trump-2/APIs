@@ -11,7 +11,7 @@ $resource = $parts[2];
 
 $id = $parts[3] ?? null;
 
-echo $resource, ', ', $id;
+// echo $resource, ', ', $id;
 
 echo $_SERVER['REQUEST_METHOD'], "\n";
 
@@ -26,3 +26,11 @@ if ($resource != "tasks") {
   http_response_code(404);
   exit;
 }
+
+// 引入 class 所在的檔案
+// 用 dirname(__DIR__) 來取得目前檔案所在資料夾的父資料夾路徑，組合成絕對路徑；用絕對路徑請求檔案是最安全的；
+require dirname(__DIR__) . "/src/TaskController.php";
+
+$controller = new TaskController;
+
+$controller->processRequest($_SERVER['REQUEST_METHOD'], $id);
