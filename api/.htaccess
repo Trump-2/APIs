@@ -1,8 +1,8 @@
-<!-- 打開重寫引擎 -->
+# 打開重寫引擎
 RewriteEngine On
-<!-- 指定不適用於重寫規則的現有的檔案、資料夾、鏈結 -->
+# 指定不適用於重寫規則的現有的檔案、資料夾、鏈結
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
-<!-- 重寫的規則 -->
+# 重寫的規則
 RewriteRule . index.php [L]
