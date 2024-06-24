@@ -21,7 +21,7 @@ $id = $parts[3] ?? null;
 
 // echo $resource, ', ', $id;
 
-echo $_SERVER['REQUEST_METHOD'], "\n";
+// echo $_SERVER['REQUEST_METHOD'], "\n";
 
 // 如果不是我們想要請求的 URL，則回傳 404 status code
 if ($resource != "tasks") {
