@@ -1,8 +1,12 @@
 <?php
 
+// 搭配 「type declarations」；啟用 「strict type checking」
 declare(strict_types=1);
 
 require dirname(__DIR__) . "/vendor/autoload.php";
+
+// 設定通用的 exception handler
+set_exception_handler("ErrorHandler::handleException");
 
 // 取得 URL，且根據我們需要的刪除其中的 query string
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -34,6 +38,9 @@ if ($resource != "tasks") {
 // 引入 class 所在的檔案
 // 用 dirname(__DIR__) 來取得目前檔案所在資料夾的父資料夾路徑，組合成絕對路徑；用絕對路徑請求檔案是最安全的；
 // require dirname(__DIR__) . "/src/TaskController.php";
+
+// 設定 response 的 「content-type」 header 的內容
+header("content-type:application/json; charset:UTF-8");
 
 $controller = new TaskController;
 
