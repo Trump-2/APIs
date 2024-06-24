@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require dirname(__DIR__) . "/vendor/autoload.php";
 
 // 取得 URL，且根據我們需要的刪除其中的 query string
