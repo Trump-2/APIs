@@ -48,7 +48,8 @@ header("content-type:application/json; charset:UTF-8");
 // $database = new Database("localhost", "api_db", "api_db_user", "1234");
 $database = new Database($_ENV['DB_HOST'], $_ENV['DB_NAME'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_PORT']);
 
+$task_gateway = new TaskGateway($database);
 
-$controller = new TaskController;
+$controller = new TaskController($task_gateway);
 
 $controller->processRequest($_SERVER['REQUEST_METHOD'], $id);
