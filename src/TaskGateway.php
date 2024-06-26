@@ -16,6 +16,19 @@ class TaskGateway
 
     $stmt = $this->conn->query($sql);
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $data = [];
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+      // 這個語法，代表將這個陣列元素的值轉換成 php 中的 boolean 類型
+      $row['is_completed'] = (bool) $row['is_completed'];
+      // 這個寫法是代表在 $data 陣列的結尾處添加一個元素，重要
+      $data[] = $row;
+    }
+
+    return $data;
+
+    // return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
   }
 }
