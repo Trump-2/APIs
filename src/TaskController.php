@@ -24,10 +24,18 @@ class TaskController
         $this->respondMethodNotAllowed("GET, POST");
       }
     } else {
+
+      $task = $this->gateway->get($id);
+      if ($task === false) {
+
+        $this->respondNotFound($id);
+        return;
+      }
+
       // 單一資源
       switch ($method) {
         case "GET":
-          echo json_encode($this->gateway->get($id));
+          echo json_encode($task);
           break;
         case "PATCH":
           echo "update $id";
@@ -46,5 +54,12 @@ class TaskController
     // 對此資源不允許的 request method 添加適當的 status code 和「Allow」header
     http_response_code(405);
     header("Allow:$allowed_methods");
+  }
+
+  private function respondNotFound(string $id): void
+  {
+    http_response_code(404);
+    // 這行可有可無，如果有會更好
+    echo json_encode(['message' => "Task with ID $id not found"]);
   }
 }
