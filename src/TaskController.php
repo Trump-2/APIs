@@ -2,6 +2,7 @@
 
 class TaskController
 {
+  // 這個參數的語法代表將 TaskGateway class 的物件指派給這個 class 的 $gateway 屬性 ( 它會自動幫我創造該屬性，而不需手動宣告 )
   public function __construct(private TaskGateway $gateway)
   {
   }
@@ -14,7 +15,8 @@ class TaskController
       // 集合資源
       if ($method == 'GET') {
 
-        echo "index";
+        // 取得 task 資料表內所有的紀錄，作為 API 的一部分輸出；格式化為 JSON 格式
+        echo json_encode($this->gateway->getAll());
       } elseif ($method == 'POST') {
 
         echo "create";
