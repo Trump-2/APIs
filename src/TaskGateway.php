@@ -52,4 +52,27 @@ class TaskGateway
 
     return $data;
   }
+
+  public function create($data): string
+  {
+    $sql = "INSERT INTO task (name, priority, is_completed) 
+            VALUES (:name, :priority, :is_completed)";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":name", $data['name'], PDO::PARAM_STR);
+
+    // 因為資料表中此欄位設為可以是 NULL，所以多一個判斷式
+    if (empty($data['priority'])) {
+      $stmt->bindValue(":priority", null, PDO::PARAM_NULL);
+    } else {
+      $stmt->bindValue(":priority", $data['priority'], PDO::PARAM_INT);
+    }
+
+    $stmt->bindValue(":is_completed", $data['is_completed'] ?? false, PDO::PARAM_BOOL);
+
+    $stmt->execute();
+
+    // 回傳插入資料的 ID，lastInsertId() 會回傳一字串
+    return $this->conn->lastInsertId();
+  }
 }

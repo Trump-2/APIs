@@ -19,12 +19,15 @@ class TaskController
         echo json_encode($this->gateway->getAll());
       } elseif ($method == 'POST') {
 
-        // print_r($_POST);
 
         // 把 JSON 資料轉換成關聯陣列
         // 利用「類型轉換」將回傳值轉成 array，確保原始回傳值為 null 時，還是會得到 array
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        var_dump($data);
+        // var_dump($data);
+
+        $id = $this->gateway->create($data);
+
+        $this->respondCreated($id);
       } else {
         $this->respondMethodNotAllowed("GET, POST");
       }
@@ -66,5 +69,11 @@ class TaskController
     http_response_code(404);
     // 這行可有可無，如果有會更好
     echo json_encode(['message' => "Task with ID $id not found"]);
+  }
+
+  private function respondCreated(string $id): void
+  {
+    http_response_code(201);
+    echo json_encode(['message' => "Task created", "id" => $id]);
   }
 }
