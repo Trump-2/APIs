@@ -19,7 +19,12 @@ class TaskController
         echo json_encode($this->gateway->getAll());
       } elseif ($method == 'POST') {
 
-        echo "create";
+        // print_r($_POST);
+
+        // 把 JSON 資料轉換成關聯陣列
+        // 利用「類型轉換」將回傳值轉成 array，確保原始回傳值為 null 時，還是會得到 array
+        $data = (array) json_decode(file_get_contents("php://input"), true);
+        var_dump($data);
       } else {
         $this->respondMethodNotAllowed("GET, POST");
       }
