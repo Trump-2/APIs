@@ -2,6 +2,14 @@
 
 class ErrorHandler
 {
+  public static function handleError(int $errno, string $errstr, string $errfile, int $errline): void
+  {
+    // 傳入的參數要去看該 class 的文件說明
+    // 其中第二個參數文件的示範中指定為 0
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+  }
+
+
   // 參數為內建的 Throwable class 的物件，該 class 有很多內建的方法可以用來自訂輸出的內容
   public static function handleException(Throwable $exception): void
   {

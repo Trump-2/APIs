@@ -5,6 +5,9 @@ declare(strict_types=1);
 
 require dirname(__DIR__) . "/vendor/autoload.php";
 
+// 設定通用的 error handler
+set_error_handler("ErrorHandler::handleError");
+
 // 設定通用的 exception handler
 set_exception_handler("ErrorHandler::handleException");
 
